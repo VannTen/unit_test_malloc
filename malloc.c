@@ -6,13 +6,16 @@
 /*   By: mgautier <mgautier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 13:48:51 by mgautier          #+#    #+#             */
-/*   Updated: 2017/05/24 15:26:33 by mgautier         ###   ########.fr       */
+/*   Updated: 2017/05/24 15:40:40 by mgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stddef.h>
 #include <dlfcn.h>
+#ifndef CALL_TO_MALLOC_BEFORE_FAILURE
+# define CALL_TO_MALLOC_BEFORE_FAILURE 100
+#endif
 
 void *malloc(size_t size)
 {
@@ -24,7 +27,7 @@ void *malloc(size_t size)
 	ft_putnbr(count);
 	ft_putchar('\n');
 	real_malloc = dlsym(RTLD_NEXT, "malloc");
-	if (count < 100)
+	if (count < CALL_TO_MALLOC_BEFORE_FAILURE)
 	return real_malloc(size);
 	else
 		return (NULL);
